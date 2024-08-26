@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Guru {
+  id          Int         @id @default(autoincrement())
+  nama        String
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  Transaksi   Transaksi[]
+}
+
+model Buku {
+  id              Int         @id @default(autoincrement())
+  judul           String
+  pengarang       String?
+  ISBN            String?     @unique
+  jilid           String?
+  image           String?
+  stok            Int
+  penerbit        String?
+  kelas           String?
+  semester        String?
+  edisi           String?
+  tanggal_terima  DateTime?
+  sumber_dana_bos String?
+  harga           Int?
+  active          Boolean     @default(true)
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt
+  Transaksi       Transaksi[]
+}
+
+model Transaksi {
+  id          Int       @id @default(autoincrement())
+  guru_id     Int       
+  buku_id     Int
+  guru        Guru      @relation(fields: [guru_id], references: [id])
+  buku        Buku      @relation(fields: [buku_id], references: [id])
+  nama_siswa  String
+  kelas       String
+  jumlah      Int
+  kembali     Boolean
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+}
+
+model Akun {
+  id          Int       @id @default(autoincrement())
+  username    String
+  password    String
+  role        Role      @default(USER)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
