@@ -1,11 +1,10 @@
 const express = require("express");
 const app = express();
 const PORT = 3000;
-
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-
 const router = require("./src/routes/index");
+const errorHandler = require("./middlewares/errorHandler");
 
 async function main() {
   await prisma.$connect();
@@ -26,6 +25,8 @@ main()
     process.exit(1);
   });
 
+app.use(express.json());
 app.use(router);
+app.use(errorHandler);
 
 module.exports = app;

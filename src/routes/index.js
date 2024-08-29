@@ -1,10 +1,16 @@
 const express = require("express");
-const router = require("express").Router();
+const router = express.Router();
 
-const bookRoutes = require("../book/bookRoutes");
-const guruRoutes = require("../guru/guruRoutes");
+// client
+const bookRoutes = require("../client/book/bookRoutes");
+const guruRoutes = require("../client/guru/guruRoutes");
 
-router.use("/api", bookRoutes);
-router.use("/api", guruRoutes);
+router.use("/api/books", bookRoutes);
+router.use("/api/guru", guruRoutes);
+
+// cms
+const cmsGuruRoutes = require("../cms/book/cmsGuruRoutes");
+
+router.use("/api/cms/guru", cmsGuruRoutes);
 
 module.exports = router;

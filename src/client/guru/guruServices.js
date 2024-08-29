@@ -5,4 +5,9 @@ const getAllGuru = async () => {
   return gurus;
 };
 
-module.exports = { getAllGuru };
+const getGuru = async (params) => {
+  const guru = await guruRepo.getGuru(params);
+  return guru;
+};
+
+module.exports = { getAllGuru, getGuru };
