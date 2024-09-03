@@ -9,8 +9,10 @@ router.use("/api/books", bookRoutes);
 router.use("/api/guru", guruRoutes);
 
 // cms
-const cmsGuruRoutes = require("../cms/book/cmsGuruRoutes");
+const cmsGuruRoutes = require("../cms/guru/cmsGuruRoutes");
+const cmsBookRoutes = require("../cms/book/cmsBookRoutes");
 
 router.use("/api/cms/guru", cmsGuruRoutes);
+router.use("/api/cms/book", cmsBookRoutes);
 
 module.exports = router;
